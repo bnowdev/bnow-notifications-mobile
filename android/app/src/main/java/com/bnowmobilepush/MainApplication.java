@@ -27,11 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-<<<<<<< HEAD
           new ReactNativeOneSignalPackage() // added this
-=======
-            new ReactNativeOneSignalPackage()
->>>>>>> afaa8b83b3f6136bb23e4439766315d05e96d455
       );
     }
 
