@@ -9,12 +9,8 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.52.0",
-<<<<<<< HEAD
     "react-native-onesignal": "^3.0.8",
     "react-native-root-toast": "^3.0.0"
-=======
-    "react-native-onesignal": "^3.0.8"
->>>>>>> 8542ae7d05abadde0887fdc7b6eab9cd280a2ebb
   },
   "devDependencies": {
     "babel-jest": "22.0.6",
