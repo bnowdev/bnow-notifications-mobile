@@ -10,8 +10,12 @@
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-onesignal": "^3.0.8",
+<<<<<<< HEAD
     "react-native-root-toast": "^3.0.0",
     "tcomb-form-native": "^0.6.11"
+=======
+    "react-native-root-toast": "^3.0.0"
+>>>>>>> 22cd58ab54cae71ede1f76b79e0555f4865e2001
   },
   "devDependencies": {
     "babel-jest": "22.0.6",

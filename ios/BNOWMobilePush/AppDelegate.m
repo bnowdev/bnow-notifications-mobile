@@ -22,7 +22,7 @@
   NSURL *jsCodeLocation;
   
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                         appId:@"6bfw19bf873-15a1-46aa-83d2-1448ba346849"
+                                                         appId:@"6bfbf873-15a1-46aa-83d2-1448ba346849"
                                                          settings:@{kOSSettingsKeyAutoPrompt: @false}];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
