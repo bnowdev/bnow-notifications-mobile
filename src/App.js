@@ -1,19 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Platform,
   TouchableOpacity,
-  Alert,
-} from 'react-native';
-import OneSignal from 'react-native-onesignal';
-import Toast from 'react-native-root-toast';
+  Alert
+} from "react-native";
+import OneSignal from "react-native-onesignal";
+import Toast from "react-native-root-toast";
+import t from "tcomb-form-native";
+
+const Form = t.form.Form;
+
+const User = t.struct({
+  email: t.String,
+  token: t.String
+});
 
 class App extends Component {
   componentDidMount() {
     OneSignal.configure({
-      onNotificationOpened: this.handleNotification,
+      onNotificationOpened: this.handleNotification
     });
   }
 
@@ -28,22 +36,30 @@ class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to the OneSignal Example!
-        </Text>
-        <Text style={styles.instructions}>
-          Using {Platform.OS}? Cool. This is a test
-        </Text>
-        {Platform.OS === 'ios' ?
-          <TouchableOpacity
-            onPress={() => OneSignal.registerForPushNotifications()}
-            style={{ padding: 20, backgroundColor: '#3B5998' }}
-          >
-            <Text style={{ color: '#fff' }}>Request Push Notification Permission</Text>
+      // <View style={styles.container}>
+      //   <Text style={styles.welcome}>Welcome to the OneSignal Example!</Text>
+      //   <Text style={styles.instructions}>
+      //     Using {Platform.OS}? Cool. This is a test
+      //   </Text>
+      //   {Platform.OS === "ios" ? (
+      //     <TouchableOpacity
+      //       onPress={() => OneSignal.registerForPushNotifications()}
+      //       style={{ padding: 20, backgroundColor: "#3B5998" }}
+      //     >
+      //       <Text style={{ color: "#fff" }}>
+      //         Request Push Notification Permission
+      //       </Text>
+      //     </TouchableOpacity>
+      //   ) : null}
+
+        <View style={styles.formContainer}>
+          <Form type={User} />
+          <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
-        : null}
-      </View>
+        </View>
+
+      // </View>
     );
   }
 }
@@ -51,20 +67,41 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 10
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
   },
+  formContainer: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  }
 });
 
 export default App;
