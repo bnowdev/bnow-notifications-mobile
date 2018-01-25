@@ -5,16 +5,16 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  AsyncStorage
+} from "react-native";
 
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
-
-export default class App extends Component {
+class NotificationListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,7 +77,23 @@ export default class App extends Component {
     };
   }
 
-  // marginLeft: "14%"
+  static navigationOptions = {
+    title: "Your Notifications"
+  };
+
+  getSavedNotifications = async () => {
+    try {
+      let _notifications = await AsyncStorage.getItem(
+        "@OneSignalNotifications:key"
+      );
+      if (_notifications !== null) {
+        _notifications = JSON.parse(notifications);
+        this.setState({ notifications: _notifications });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   renderSeparator = () => {
     return (
@@ -85,20 +101,19 @@ export default class App extends Component {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
   };
 
   render() {
-
     return (
       <View style={styles.container}>
-        <View style={styles.navBar}>
+        {/* <View style={styles.navBar}>
           <Text style={styles.navBarText}>BusinessNow</Text>
-        </View>
-        <Text style={styles.welcome}>List of your notifications</Text>
+        </View> */}
+        {/* <Text style={styles.welcome}>List of your notifications</Text> */}
 
         <FlatList
           style={styles.notificationList}
@@ -115,9 +130,6 @@ export default class App extends Component {
     );
   }
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -161,3 +173,5 @@ const styles = StyleSheet.create({
     color: "black"
   }
 });
+
+export default NotificationListScreen;
