@@ -82,12 +82,12 @@ class App extends Component {
   //   InteractionManager.clearInteractionHandle();
   // }
 
-  // onRegistered(notifData) {
-  //   console.log(
-  //     "Device had been registered for push notifications!",
-  //     notifData
-  //   );
-  // }
+  onRegistered(notifData) {
+    console.log(
+      "Device had been registered for push notifications!",
+      notifData
+    );
+  }
 
   // onIds(device) {
   //   console.log("Device info: ", device);

@@ -4,11 +4,12 @@ import {
 
 import FormScreen from "./FormScreen";
 import NotificationListScreen from "./NotificationListScreen";
+import SplashScreen from "./SplashScreen";
 
-const Navigator = StackNavigator({
+const Navigation = StackNavigator({
+  SplashScreen: {screen: SplashScreen},
   Form: { screen: FormScreen },
   NotificationList: { screen: NotificationListScreen }
 });
 
-export default Navigator;
-//  Home: {screen: HomeScreen},
+export default Navigation;
