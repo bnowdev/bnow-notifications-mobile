@@ -1,29 +1,43 @@
 import React from "react";
 import Navigation from "./Navigation";
+import { NavigationActions } from "react-navigation";
 import { AsyncStorage } from "react-native";
 import OneSignal from "react-native-onesignal";
+import SplashScreen from "react-native-splash-screen";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      navigateTo: "form"
+    };
   }
 
   componentWillMount() {
     console.log("CLASS: APP => WillMount");
-    //OneSignal.addEventListener("received", this.onReceived);
-    OneSignal.addEventListener("received",this.addNotificationToAsyncStorage )
+    OneSignal.addEventListener("received", this.addNotificationToAsyncStorage);
+
+    OneSignal.getTags(receivedTags => {
+      if (receivedTags) {
+        console.log(receivedTags);
+        this.setState({
+          navigateTo: "NotificationList"
+        });
+      } else {
+        console.log("No tags");
+        this.setState({
+          navigateTo: "Form"
+        });
+      }
+    });
+
+    // Hides the custom splash screen which we configured
+    console.log("before hiding splash screen");
+    SplashScreen.hide();
+    console.log("after hiding splash screen");
   }
 
-  componentWillUnmount() {
-    console.log("CLASS: APP => WillUnmount");
-    //OneSignal.removeEventListener("received", this.onReceived);
-  }
-
-  onReceived(notification) {
-    console.log("CLASS: APP => Notification received: ", notification);
-    //   this.addNotificationToAsyncStorage(notification);
-  }
-
+ 
   addNotificationToAsyncStorage = async notification => {
     console.log("CLASS: APP => Notification received: ", notification);
 
@@ -64,6 +78,6 @@ export default class App extends React.Component {
   };
 
   render() {
-    return <Navigation />;
+    return <Navigation screenProps={this.state} />;
   }
 }

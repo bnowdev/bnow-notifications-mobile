@@ -28,10 +28,12 @@ class FormScreen extends Component {
     // }
   }
 
-  // componentWillMount(){
-  //   this.setState({isLoading: true});
+  componentWillMount(){
+    if(this.props.screenProps.navigateTo === "NotificationList"){
+      this._navigateTo("NotificationList")
+    }
 
-  // }
+  }
 
   static navigationOptions = {
     title: "Register for notifications"

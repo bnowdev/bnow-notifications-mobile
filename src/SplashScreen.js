@@ -12,17 +12,18 @@ export default class SplashScreen extends Component {
   }
 
   componentDidMount() {
-    OneSignal.getTags(receivedTags => {
+    // OneSignal.getTags(receivedTags => {
 
-      if (receivedTags) {
-        console.log(receivedTags);
-        this._navigateTo("NotificationList");
+    //   if (receivedTags) {
+    //     console.log(receivedTags);
+    //     this._navigateTo("NotificationList");
 
-      } else {
-        console.log("No tags");
-        this._navigateTo("Form");
-      }
-    });
+    //   } else {
+    //     console.log("No tags");
+    //     this._navigateTo("Form");
+    //   }
+    // });
+ 
   }
 
   _navigateTo(routeName) {
