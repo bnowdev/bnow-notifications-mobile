@@ -1,6 +1,6 @@
 import React from "react";
 import Navigation from "./Navigation";
-import { NavigationActions } from "react-navigation";
+// import { NavigationActions } from "react-navigation";
 import { AsyncStorage } from "react-native";
 import OneSignal from "react-native-onesignal";
 import SplashScreen from "react-native-splash-screen";
@@ -17,19 +17,19 @@ export default class App extends React.Component {
     console.log("CLASS: APP => WillMount");
     OneSignal.addEventListener("received", this.addNotificationToAsyncStorage);
 
-    OneSignal.getTags(receivedTags => {
-      if (receivedTags) {
-        console.log(receivedTags);
-        this.setState({
-          navigateTo: "NotificationList"
-        });
-      } else {
-        console.log("No tags");
-        this.setState({
-          navigateTo: "Form"
-        });
-      }
-    });
+    // OneSignal.getTags(receivedTags => {
+    //   if (receivedTags) {
+    //     console.log(receivedTags);
+    //     this.setState({
+    //       navigateTo: "NotificationList"
+    //     });
+    //   } else {
+    //     console.log("No tags");
+    //     this.setState({
+    //       navigateTo: "Form"
+    //     });
+    //   }
+    // });
 
     // Hides the custom splash screen which we configured
     console.log("before hiding splash screen");
@@ -78,6 +78,6 @@ export default class App extends React.Component {
   };
 
   render() {
-    return <Navigation screenProps={this.state} />;
+    return <Navigation/>;
   }
 }

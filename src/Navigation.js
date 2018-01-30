@@ -7,6 +7,14 @@ import NotificationListScreen from "./NotificationListScreen";
 import SplashScreen from "./SplashScreen";
 
 
+const Navigation = StackNavigator({
+  SplashScreen: {screen: SplashScreen},
+  Form: { screen: FormScreen },
+  NotificationList: { screen: NotificationListScreen }
+});
+
+export default Navigation;
+
 // const Navigation = (props) => {
 
 //   if(props.navigateTo === "Form"){
@@ -23,17 +31,12 @@ import SplashScreen from "./SplashScreen";
 
 
 
-const Navigation =  StackNavigator({
-     Form: { screen: FormScreen },
-     NotificationList: { screen: NotificationListScreen }
-   });
-
-export default Navigation;
+// const Navigation =  StackNavigator({
+//      Form: { screen: FormScreen },
+//      NotificationList: { screen: NotificationListScreen }
+//    });
 
 
 
-// StackNavigator({
-//   SplashScreen: {screen: SplashScreen},
-//   Form: { screen: FormScreen },
-//   NotificationList: { screen: NotificationListScreen }
-// });
+
+

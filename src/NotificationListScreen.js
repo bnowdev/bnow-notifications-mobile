@@ -30,11 +30,11 @@ class NotificationListScreen extends Component {
   }
 
   componentWillMount() {
-    console.log("willMount");
+    console.log("NotificationList => willMount");
   }
 
   componentDidMount() {
-    console.log("didMount");
+    console.log("NotificationList => didMount");
 
     this.setState({
       isLoading: true
@@ -42,7 +42,6 @@ class NotificationListScreen extends Component {
     this.getSavedNotifications();
 
     console.log("endDidMount");
-    
   }
 
   static navigationOptions = {
@@ -141,6 +140,34 @@ class NotificationListScreen extends Component {
     console.log("State getSavedNotifications", this.state);
   };
 
+  refreshNotifications = async () => {
+    let _notificationsString = null;
+    try {
+      _notificationsString = await AsyncStorage.getItem(
+        "@OneSignalNotifications:key"
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (_notificationsString) {
+      let _notifications = JSON.parse(_notificationsString);
+
+      if (Array.isArray(_notifications) && _notifications.length > 0) {
+        this.setState({
+          notifications: _notifications
+        });
+      }
+      Alert.alert("Got notifications(test)");
+    } else {
+      Alert.alert("Got no notifications(test)");
+    }
+
+    this.setState({
+      isLoading: false
+    });
+  };
+
   renderSeparator = () => {
     return (
       <View
@@ -236,6 +263,12 @@ class NotificationListScreen extends Component {
           )}
         />
 
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.refreshNotifications}
+        >
+          <Text style={styles.buttonText}>Refresh notifications</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={this._deleteServiceNowTagFromOnesignal}

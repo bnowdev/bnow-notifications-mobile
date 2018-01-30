@@ -29,9 +29,9 @@ class FormScreen extends Component {
   }
 
   componentWillMount(){
-    if(this.props.screenProps.navigateTo === "NotificationList"){
-      this._navigateTo("NotificationList")
-    }
+    // if(this.props.screenProps.navigateTo === "NotificationList"){
+    //   this._navigateTo("NotificationList")
+    // }
 
   }
 
