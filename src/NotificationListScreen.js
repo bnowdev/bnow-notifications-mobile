@@ -36,9 +36,6 @@ class NotificationListScreen extends Component {
   componentDidMount() {
     console.log("NotificationList => didMount");
 
-    this.setState({
-      isLoading: true
-    });
     this.getSavedNotifications();
 
     console.log("endDidMount");
@@ -48,60 +45,12 @@ class NotificationListScreen extends Component {
     title: "Your Notifications"
   };
 
-  //region old getSavedNotifications
-  // getSavedNotifications = async () => {
-  //   this.setState({
-  //     isLoading: true
-  //   });
-
-  //   console.log("getSavedNotifications");
-
-  //   try {
-  //     console.log("getSavedNotifications = > try");
-
-  //     let _notifications = await AsyncStorage.getItem(
-  //       "@OneSignalNotifications:key"
-  //     );
-  //     console.log(_notifications);
-
-  //     if (_notifications) {
-  //       console.log("IF ");
-  //       _notifications = JSON.parse(notifications);
-
-  //       if (Array.isArray && _notifications.length > 0) {
-  //         this.setState({
-  //           isLoading: false,
-  //           notifications: _notifications
-  //         });
-
-  //         console.log("Notifications loaded:");
-  //         console.log(_notifications);
-
-  //         return _notifications;
-  //       } else {
-  //         this.setState({ isLoading: false });
-  //         console.log("Notifications.length < 1 or not an array");
-  //       }
-  //     }
-
-  //     console.log("No @OneSignalNotifications:key in Asyncstorage ");
-  //     this.setState({ isLoading: false });
-  //   } catch (error) {
-  //     console.log("insideCatch");
-  //     console.log(error);
-  //     this.setState({
-  //       isLoading: false
-  //     });
-  //   }
-
-  //   console.log("end getSavedNotifications");
-  //   this.setState({
-  //     isLoading: false
-  //   });
-  // };
-  //endregion
-
+ 
   getSavedNotifications = async () => {
+    this.setState({
+      isLoading: true
+    });
+
     let _notificationsString = null;
 
     console.log("inside getSavedNotifications");
@@ -188,7 +137,8 @@ class NotificationListScreen extends Component {
 
   _deleteNotificationsFromAsyncStore = async () => {
     try {
-      await AsyncStorage.deleteItem("@OneSignalNotifications:key");
+      //await AsyncStorage.deleteItem("@OneSignalNotifications:key");
+      await AsyncStorage.removeItem("@OneSignalNotifications:key");
       this.setState({
         notifications: []
       });
@@ -224,7 +174,15 @@ class NotificationListScreen extends Component {
       console.log("No notifications 2");
       return (
         <View style={styles.container}>
-          <Text style={styles.notificationTitle}>No notifications 2W! </Text>
+          <Text style={styles.notificationTitle}>No notifications ! </Text>
+
+          <TouchableOpacity
+          style={styles.button}
+          onPress={this.refreshNotifications}
+        >
+          <Text style={styles.buttonText}>Refresh notifications</Text>
+        </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.button}
             onPress={this._deleteServiceNowTagFromOnesignal}
@@ -263,18 +221,21 @@ class NotificationListScreen extends Component {
           )}
         />
 
-        <TouchableOpacity
+        
+      <TouchableOpacity
           style={styles.button}
           onPress={this.refreshNotifications}
         >
           <Text style={styles.buttonText}>Refresh notifications</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.button}
           onPress={this._deleteServiceNowTagFromOnesignal}
         >
           <Text style={styles.buttonText}>Delete user tag from onesignal</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.button}
           onPress={this._deleteNotificationsFromAsyncStore}

@@ -11,6 +11,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "SplashScreen.h"  // here
 #import "RCTOneSignal.h"
 
 
@@ -23,7 +24,7 @@
   
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"6bfbf873-15a1-46aa-83d2-1448ba346849"
-                                                         settings:@{kOSSettingsKeyAutoPrompt: @false}];
+                                                         settings:@{kOSSettingsKeyAutoPrompt: @true}];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
@@ -38,6 +39,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [SplashScreen show];  // here
   return YES;
 }
 

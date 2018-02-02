@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { NavigationActions } from "react-navigation";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet, ActivityIndicator, Alert } from "react-native";
 import OneSignal from "react-native-onesignal";
+
+import {isEmptyObj} from './utils/JsUtils';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -12,15 +14,20 @@ export default class SplashScreen extends Component {
   }
 
   componentDidMount() {
-    OneSignal.getTags(receivedTags => {
 
-      if (receivedTags) {
-        console.log(receivedTags);
-        this._navigateTo("NotificationList");
+    OneSignal.getTags((receivedTags) => {
+
+      // TODO: Add util method here
+      if (isEmptyObj(receivedTags)) {
+        console.log("no tags");
+        Alert.alert("Not found onesignal key teg");
+        this._navigateTo("Form");
 
       } else {
-        console.log("No tags");
-        this._navigateTo("Form");
+        console.log("tags");
+        console.log(receivedTags);
+        Alert.alert("Found onesignal key tag");
+        this._navigateTo("NotificationList");
       }
     });
  
