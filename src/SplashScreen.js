@@ -20,17 +20,22 @@ export default class SplashScreen extends Component {
       // TODO: Add util method here
       if (isEmptyObj(receivedTags)) {
         console.log("no tags");
-        Alert.alert("Not found onesignal key teg");
+       // Alert.alert("Not found onesignal key tag");
         this._navigateTo("Form");
 
       } else {
         console.log("tags");
         console.log(receivedTags);
-        Alert.alert("Found onesignal key tag");
+       // Alert.alert("Found onesignal key tag");
         this._navigateTo("NotificationList");
       }
     });
  
+  }
+
+  componentWillUnmount(){
+    console.log("Splash screen will unmounted");
+    
   }
 
   _navigateTo(routeName) {
@@ -40,15 +45,6 @@ export default class SplashScreen extends Component {
     });
     this.props.navigation.dispatch(actionToDispatch);
   }
-
-  //region ====== NOT USED FUNCTIONS ========
-
-  // componentDidUpdate() {
-  // }
-
-  //_hasServiceNowIdInOneSignal() {}
-
-  //endregion === END YOUR TEXT HERE ====
 
   render() {
     return <View style={[styles.container,styles.horizontal]}> 

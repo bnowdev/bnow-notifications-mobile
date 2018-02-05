@@ -4,305 +4,305 @@
  * @flow
  */
 
-import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  AsyncStorage,
-  Alert,
-  TouchableOpacity
-} from "react-native";
+// // import React, { Component } from "react";
+// // import {
+// //   Platform,
+// //   StyleSheet,
+// //   Text,
+// //   View,
+// //   FlatList,
+// //   AsyncStorage,
+// //   Alert,
+// //   TouchableOpacity
+// // } from "react-native";
 
-//ONLY FOR DEBUGGING
-import OneSignal from "react-native-onesignal";
-import { NavigationActions } from "react-navigation";
+// // //ONLY FOR DEBUGGING
+// // import OneSignal from "react-native-onesignal";
+// // import { NavigationActions } from "react-navigation";
 
-class NotificationListScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      notifications: []
-    };
-  }
+// // class NotificationListScreen extends Component {
+// //   constructor(props) {
+// //     super(props);
+// //     this.state = {
+// //       isLoading: false,
+// //       notifications: []
+// //     };
+// //   }
 
-  componentWillMount() {
-    console.log("NotificationList => willMount");
-  }
+// //   componentWillMount() {
+// //     console.log("NotificationList => willMount");
+// //   }
 
-  componentDidMount() {
-    console.log("NotificationList => didMount");
+// //   componentDidMount() {
+// //     console.log("NotificationList => didMount");
 
-    this.getSavedNotifications();
+// //     this.getSavedNotifications();
 
-    console.log("endDidMount");
-  }
+// //     console.log("endDidMount");
+// //   }
 
-  static navigationOptions = {
-    title: "Your Notifications"
-  };
+// //   static navigationOptions = {
+// //     title: "Your Notifications"
+// //   };
 
  
-  getSavedNotifications = async () => {
-    this.setState({
-      isLoading: true
-    });
+// //   getSavedNotifications = async () => {
+// //     this.setState({
+// //       isLoading: true
+// //     });
 
-    let _notificationsString = null;
+// //     let _notificationsString = null;
 
-    console.log("inside getSavedNotifications");
-    try {
-      _notificationsString = await AsyncStorage.getItem(
-        "@OneSignalNotifications:key"
-      );
-      if (!_notificationsString) {
-        console.log("no data 2");
-      }
-    } catch (error) {
-      console.log("inside getSavedNotificationsCatch");
-      console.log(error);
-    }
-    console.log("after try AsyncStorage.getItem");
+// //     console.log("inside getSavedNotifications");
+// //     try {
+// //       _notificationsString = await AsyncStorage.getItem(
+// //         "@OneSignalNotifications:key"
+// //       );
+// //       if (!_notificationsString) {
+// //         console.log("no data 2");
+// //       }
+// //     } catch (error) {
+// //       console.log("inside getSavedNotificationsCatch");
+// //       console.log(error);
+// //     }
+// //     console.log("after try AsyncStorage.getItem");
 
-    if (_notificationsString) {
-      let _notifications = JSON.parse(_notificationsString);
+// //     if (_notificationsString) {
+// //       let _notifications = JSON.parse(_notificationsString);
 
-      if (Array.isArray(_notifications) && _notifications.length > 0) {
-        this.setState({
-          notifications: _notifications
-        });
-      }
-      Alert.alert("Got notifications(test)");
-    } else {
-      Alert.alert("Got no notifications(test)");
-    }
+// //       if (Array.isArray(_notifications) && _notifications.length > 0) {
+// //         this.setState({
+// //           notifications: _notifications
+// //         });
+// //       }
+// //       Alert.alert("Got notifications(test)");
+// //     } else {
+// //       Alert.alert("Got no notifications(test)");
+// //     }
 
-    console.log("after async storage");
+// //     console.log("after async storage");
 
-    this.setState({
-      isLoading: false
-    });
+// //     this.setState({
+// //       isLoading: false
+// //     });
 
-    console.log("State getSavedNotifications", this.state);
-  };
+// //     console.log("State getSavedNotifications", this.state);
+// //   };
 
-  refreshNotifications = async () => {
-    let _notificationsString = null;
-    try {
-      _notificationsString = await AsyncStorage.getItem(
-        "@OneSignalNotifications:key"
-      );
-    } catch (error) {
-      console.log(error);
-    }
+// //   refreshNotifications = async () => {
+// //     let _notificationsString = null;
+// //     try {
+// //       _notificationsString = await AsyncStorage.getItem(
+// //         "@OneSignalNotifications:key"
+// //       );
+// //     } catch (error) {
+// //       console.log(error);
+// //     }
 
-    if (_notificationsString) {
-      let _notifications = JSON.parse(_notificationsString);
+// //     if (_notificationsString) {
+// //       let _notifications = JSON.parse(_notificationsString);
 
-      if (Array.isArray(_notifications) && _notifications.length > 0) {
-        this.setState({
-          notifications: _notifications
-        });
-      }
-      Alert.alert("Got notifications(test)");
-    } else {
-      Alert.alert("Got no notifications(test)");
-    }
+// //       if (Array.isArray(_notifications) && _notifications.length > 0) {
+// //         this.setState({
+// //           notifications: _notifications
+// //         });
+// //       }
+// //       Alert.alert("Got notifications(test)");
+// //     } else {
+// //       Alert.alert("Got no notifications(test)");
+// //     }
 
-    this.setState({
-      isLoading: false
-    });
-  };
+// //     this.setState({
+// //       isLoading: false
+// //     });
+// //   };
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#CED0CE"
-        }}
-      />
-    );
-  };
+// //   renderSeparator = () => {
+// //     return (
+// //       <View
+// //         style={{
+// //           height: 1,
+// //           width: "100%",
+// //           backgroundColor: "#CED0CE"
+// //         }}
+// //       />
+// //     );
+// //   };
 
-  // === ONLY FOR DEBUGGING =====
-  _deleteServiceNowTagFromOnesignal = () => {
-    OneSignal.deleteTag("serviceNowId");
-    this._navigateTo("Form");
-  };
+// //   // === ONLY FOR DEBUGGING =====
+// //   _deleteServiceNowTagFromOnesignal = () => {
+// //     OneSignal.deleteTag("serviceNowId");
+// //     this._navigateTo("Form");
+// //   };
 
-  _deleteNotificationsFromAsyncStore = async () => {
-    try {
-      //await AsyncStorage.deleteItem("@OneSignalNotifications:key");
-      await AsyncStorage.removeItem("@OneSignalNotifications:key");
-      this.setState({
-        notifications: []
-      });
-    } catch (error) {
-      console.log();
-      Alert.alert("Error", error);
-    }
-  };
+// //   _deleteNotificationsFromAsyncStore = async () => {
+// //     try {
+// //       //await AsyncStorage.deleteItem("@OneSignalNotifications:key");
+// //       await AsyncStorage.removeItem("@OneSignalNotifications:key");
+// //       this.setState({
+// //         notifications: []
+// //       });
+// //     } catch (error) {
+// //       console.log();
+// //       Alert.alert("Error", error);
+// //     }
+// //   };
 
-  _navigateTo = routeName => {
-    const actionToDispatch = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName })]
-    });
-    this.props.navigation.dispatch(actionToDispatch);
-  };
-  // === ONLY FOR DEBUGGING =====
+// //   _navigateTo = routeName => {
+// //     const actionToDispatch = NavigationActions.reset({
+// //       index: 0,
+// //       actions: [NavigationActions.navigate({ routeName })]
+// //     });
+// //     this.props.navigation.dispatch(actionToDispatch);
+// //   };
+// //   // === ONLY FOR DEBUGGING =====
 
-  render() {
-    if (this.state.isLoading) {
-      console.log("Loading notification");
-      return (
-        <View style={styles.container}>
-          <Text>Loading Notifications...</Text>
-        </View>
-      );
-    }
+// //   render() {
+// //     if (this.state.isLoading) {
+// //       console.log("Loading notification");
+// //       return (
+// //         <View style={styles.container}>
+// //           <Text>Loading Notifications...</Text>
+// //         </View>
+// //       );
+// //     }
 
-    if (
-      !this.state.isLoading &&
-      (!this.state.notifications || this.state.notifications.length < 1)
-    ) {
-      console.log("No notifications 2");
-      return (
-        <View style={styles.container}>
-          <Text style={styles.notificationTitle}>No notifications ! </Text>
+// //     if (
+// //       !this.state.isLoading &&
+// //       (!this.state.notifications || this.state.notifications.length < 1)
+// //     ) {
+// //       console.log("No notifications 2");
+// //       return (
+// //         <View style={styles.container}>
+// //           <Text style={styles.notificationTitle}>No notifications ! </Text>
 
-          <TouchableOpacity
-          style={styles.button}
-          onPress={this.refreshNotifications}
-        >
-          <Text style={styles.buttonText}>Refresh notifications</Text>
-        </TouchableOpacity>
+// //           <TouchableOpacity
+// //           style={styles.button}
+// //           onPress={this.refreshNotifications}
+// //         >
+// //           <Text style={styles.buttonText}>Refresh notifications</Text>
+// //         </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this._deleteServiceNowTagFromOnesignal}
-          >
-            <Text style={styles.buttonText}>
-              Delete user tag from onesignal
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this._deleteNotificationsFromAsyncStore}
-          >
-            <Text style={styles.buttonText}>Delete Notifications </Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
+// //           <TouchableOpacity
+// //             style={styles.button}
+// //             onPress={this._deleteServiceNowTagFromOnesignal}
+// //           >
+// //             <Text style={styles.buttonText}>
+// //               Delete user tag from onesignal
+// //             </Text>
+// //           </TouchableOpacity>
+// //           <TouchableOpacity
+// //             style={styles.button}
+// //             onPress={this._deleteNotificationsFromAsyncStore}
+// //           >
+// //             <Text style={styles.buttonText}>Delete Notifications </Text>
+// //           </TouchableOpacity>
+// //         </View>
+// //       );
+// //     }
 
-    return (
-      <View style={styles.container}>
-        <FlatList
-          style={styles.notificationList}
-          ItemSeparatorComponent={this.renderSeparator}
-          data={this.state.notifications}
-          renderItem={({ item }) => (
-            <View style={styles.notificationContainer}>
-              <Text style={styles.notificationTitle}> {item.title}</Text>
-              {item.body.length > 50 ? (
-                <Text style={styles.notificationText}>
-                  {item.body.substr(0, 50) + "..."}
-                </Text>
-              ) : (
-                <Text style={styles.notificationText}>{item.body}</Text>
-              )}
-            </View>
-          )}
-        />
+// //     return (
+// //       <View style={styles.container}>
+// //         <FlatList
+// //           style={styles.notificationList}
+// //           ItemSeparatorComponent={this.renderSeparator}
+// //           data={this.state.notifications}
+// //           renderItem={({ item }) => (
+// //             <View style={styles.notificationContainer}>
+// //               <Text style={styles.notificationTitle}> {item.title}</Text>
+// //               {item.body.length > 50 ? (
+// //                 <Text style={styles.notificationText}>
+// //                   {item.body.substr(0, 50) + "..."}
+// //                 </Text>
+// //               ) : (
+// //                 <Text style={styles.notificationText}>{item.body}</Text>
+// //               )}
+// //             </View>
+// //           )}
+// //         />
 
         
-      <TouchableOpacity
-          style={styles.button}
-          onPress={this.refreshNotifications}
-        >
-          <Text style={styles.buttonText}>Refresh notifications</Text>
-        </TouchableOpacity>
+// //       <TouchableOpacity
+// //           style={styles.button}
+// //           onPress={this.refreshNotifications}
+// //         >
+// //           <Text style={styles.buttonText}>Refresh notifications</Text>
+// //         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this._deleteServiceNowTagFromOnesignal}
-        >
-          <Text style={styles.buttonText}>Delete user tag from onesignal</Text>
-        </TouchableOpacity>
+// //         <TouchableOpacity
+// //           style={styles.button}
+// //           onPress={this._deleteServiceNowTagFromOnesignal}
+// //         >
+// //           <Text style={styles.buttonText}>Delete user tag from onesignal</Text>
+// //         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this._deleteNotificationsFromAsyncStore}
-        >
-          <Text style={styles.buttonText}>Delete Notifications </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+// //         <TouchableOpacity
+// //           style={styles.button}
+// //           onPress={this._deleteNotificationsFromAsyncStore}
+// //         >
+// //           <Text style={styles.buttonText}>Delete Notifications </Text>
+// //         </TouchableOpacity>
+// //       </View>
+// //     );
+// //   }
+// // }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    backgroundColor: "#F5FCFF"
-  },
-  navBar: {
-    backgroundColor: "#303a46",
-    width: "100%",
-    height: 50
-  },
-  navBarText: {
-    color: "white",
-    fontSize: 35
-  },
-  welcome: {
-    fontSize: 20,
-    margin: 10
-  },
-  notificationList: {
-    width: "100%"
-  },
-  notificationContainer: {
-    flex: 1,
-    flexDirection: "column",
-    marginTop: 5,
-    marginBottom: 5
-  },
-  notificationTitle: {
-    fontSize: 20,
-    color: "black",
-    flex: 1
-  },
-  notificationText: {
-    color: "grey",
-    fontSize: 15
-  },
-  separator: {
-    color: "black"
-  },
-  button: {
-    height: 36,
-    backgroundColor: "#48BBEC",
-    borderColor: "#48BBEC",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: "stretch",
-    justifyContent: "center"
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "white",
-    alignSelf: "center"
-  }
-});
+// // const styles = StyleSheet.create({
+// //   container: {
+// //     flex: 1,
+// //     justifyContent: "flex-start",
+// //     alignItems: "flex-start",
+// //     backgroundColor: "#F5FCFF"
+// //   },
+// //   navBar: {
+// //     backgroundColor: "#303a46",
+// //     width: "100%",
+// //     height: 50
+// //   },
+// //   navBarText: {
+// //     color: "white",
+// //     fontSize: 35
+// //   },
+// //   welcome: {
+// //     fontSize: 20,
+// //     margin: 10
+// //   },
+// //   notificationList: {
+// //     width: "100%"
+// //   },
+// //   notificationContainer: {
+// //     flex: 1,
+// //     flexDirection: "column",
+// //     marginTop: 5,
+// //     marginBottom: 5
+// //   },
+// //   notificationTitle: {
+// //     fontSize: 20,
+// //     color: "black",
+// //     flex: 1
+// //   },
+// //   notificationText: {
+// //     color: "grey",
+// //     fontSize: 15
+// //   },
+// //   separator: {
+// //     color: "black"
+// //   },
+// //   button: {
+// //     height: 36,
+// //     backgroundColor: "#48BBEC",
+// //     borderColor: "#48BBEC",
+// //     borderWidth: 1,
+// //     borderRadius: 8,
+// //     marginBottom: 10,
+// //     alignSelf: "stretch",
+// //     justifyContent: "center"
+// //   },
+// //   buttonText: {
+// //     fontSize: 18,
+// //     color: "white",
+// //     alignSelf: "center"
+// //   }
+// // });
 
-export default NotificationListScreen;
+// export default NotificationListScreen;

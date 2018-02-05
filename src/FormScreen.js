@@ -20,6 +20,10 @@ const User = t.struct({
   token: t.String
 });
 
+const options = {
+  keyboardType: "numeric"
+}
+
 class FormScreen extends Component {
   constructor(props) {
     super(props);
@@ -28,12 +32,6 @@ class FormScreen extends Component {
     // }
   }
 
-  componentWillMount(){
-    // if(this.props.screenProps.navigateTo === "NotificationList"){
-    //   this._navigateTo("NotificationList")
-    // }
-
-  }
 
   static navigationOptions = {
     title: "Register for notifications"
@@ -94,7 +92,7 @@ class FormScreen extends Component {
           Once you submit them you should be able to receive push notification
           from ServiceNow.asdas
         </Text>
-        <Form type={User} ref={f => (this._form = f)} />
+        <Form type={User} ref={f => (this._form = f)} options={options}/>
         <TouchableOpacity style={styles.button} onPress={this.handleFormSubmit}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
