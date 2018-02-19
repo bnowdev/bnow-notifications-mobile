@@ -43,4 +43,10 @@
   return YES;
 }
 
+// PAWEL - added 19.02.18 (maybe fixes the IOS 10 on IPHONE X issue - onReceived)
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
+  [RCTOneSignal didReceiveRemoteNotification:notification];
+}
+
 @end
